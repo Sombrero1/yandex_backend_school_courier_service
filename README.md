@@ -3,7 +3,7 @@ Django REST API сервис, который позволяет нанимать
 ### Инструкция по развёртыванию:
 1. Установить [Docker](https://docs.docker.com/get-docker/)
 2. Установить [Docker-Compose](https://docs.docker.com/compose/install/)
-3. Для запуска сервера выполнить команду `docker-compose up -d --build` в директории Relese_back_v1.
+3. Для запуска сервера выполнить команду `docker-compose up -d --build` в корневой директории.
 ### Использованные инструменты:
 1. Docker и Docker Compose для сборки и развёртывания проекта
 2. Фреймворк Django
