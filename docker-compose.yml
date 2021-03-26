@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+
+  web:
+    # Берем Dockerfile из каталога app
+    build: ./djangoProject
+    image: shureckweb
+    # Запускаем тестовый сервер
+    restart: always
+    
+    command: python manage.py runserver 0.0.0.0:8080
+    # куда будут помещены данные из каталога app
+    # Открываем порт 8000 внутри и снаружи
+
+    volumes:
+        - ./djangoProject/:/usr/src/app/
+
+    ports:
+      - 8080:8080
+    #entrypoint: "entrypoint.sh"
+    #entrypoint: ["python", "manage.py" ,"migrate", "DB"]
+    
+    env_file:
+      - ./.env.dev
+      
+    depends_on:
+      - db
+    
+  db:
+    # Образ и версия базы, которую мы будем использовать
+    restart: always
+    
+    image: postgres:11.11
+    # Внешний том(volume) и место где он будет подключен внутри контейнера
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data/
+    environment:
+      # Учетные данные, которые можно будет переопределить
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=courier_service
+
+volumes:
+  postgres_volume:
